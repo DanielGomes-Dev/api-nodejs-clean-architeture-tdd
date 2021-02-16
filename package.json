@@ -8,12 +8,12 @@
   },
   "lint-staged": {
     "*.js": [
-      "standard"
+      "npx standard"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npx lint-staged"
     }
   },
   "author": "",
