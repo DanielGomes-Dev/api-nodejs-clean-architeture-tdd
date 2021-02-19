@@ -30,6 +30,7 @@ const makeAuthUseCaseWitError = () => {
 const makeEmailValidator = () => {
   class EmailValidatorSpy {
     isValid (email) {
+      this.email = email
       return this.isEmailValid
     }
   }
@@ -60,7 +61,7 @@ const makeSut = () => {
   }
 }
 
-describe('Login Router', async () => {
+describe('Login Router', () => {
   test('Should return 400 if no email is provided', async () => {
     // sut System un Test
     const { sut } = makeSut()
@@ -273,5 +274,18 @@ describe('Login Router', async () => {
     const httpResponse = await sut.route(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError())
+  })
+
+  test('Should call emailValidator with correct email', async () => {
+    // sut System un Test
+    const { sut, emailValidatorSpy } = makeSut()
+    const httpRequest = {
+      body: {
+        email: 'any_email@mail.com',
+        password: 'any_password'
+      }
+    }
+    await sut.route(httpRequest)
+    expect(emailValidatorSpy.email).toBe(httpRequest.body.email)
   })
 })
