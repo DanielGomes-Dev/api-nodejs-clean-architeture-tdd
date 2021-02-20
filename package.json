@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll --noStackTrace --passWithNoTests --coverage",
+    "test": "jest --watch --noStackTrace --passWithNoTests --coverage",
     "test:unit": "jest --watchAll -c jest-unit-config.js --passWithNoTests",
     "test:integration": "jest --watchAll -c jest-integration-config.js --passWithNoTests",
-    "test:staged":"jest"
+    "test:staged": "jest"
   },
   "standard": {
     "env": [
@@ -19,5 +19,8 @@
   "devDependencies": {
     "jest": "^26.6.3",
     "standard": "^16.0.3"
+  },
+  "dependencies": {
+    "validator": "^13.5.2"
   }
 }
