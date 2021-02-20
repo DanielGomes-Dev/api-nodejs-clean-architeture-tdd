@@ -1,10 +1,5 @@
 const validator = require('validator')
-
-class EmailValidator {
-  isValid (email) {
-    return validator.isEmail(email)
-  }
-}
+const EmailValidator = require('./email-validator')
 
 const makeSut = () => {
   // Criar um makeSut para caso ela precise de alguma dependencia não sera nescessario alterar todos os testes;
