@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll --noStackTrace",
+    "test": "jest --watchAll --noStackTrace --coverage",
     "test:staged":"jest"
   },
   "standard": {
