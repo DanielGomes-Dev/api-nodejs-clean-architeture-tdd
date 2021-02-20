@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll --noStackTrace --coverage",
+    "test": "jest --watchAll --noStackTrace --passWithNoTests --coverage",
+    "test:unit": "jest --watchAll -c jest-unit-config.js --passWithNoTests",
+    "test:integration": "jest --watchAll -c jest-integration-config.js --passWithNoTests",
     "test:staged":"jest"
   },
   "standard": {
