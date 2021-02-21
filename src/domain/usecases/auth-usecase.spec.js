@@ -1,4 +1,4 @@
-const { MissingParamError } = require('../../utils/errors')
+const { MissingParamError, InvalidParamError } = require('../../utils/errors')
 class AuthUseCase {
   constructor (loadUserByEmailRepository) {
     this.loadUserByEmailRepository = loadUserByEmailRepository
@@ -7,6 +7,9 @@ class AuthUseCase {
   async auth (email, password) {
     if (!email) throw new MissingParamError('email') // Retornar error para ser tratado na frente;
     if (!password) throw new MissingParamError('password') // Retornar error para ser tratado na frente;
+    if (!this.loadUserByEmailRepository) throw new MissingParamError('loadUserByEmailRepository')
+    if (!this.loadUserByEmailRepository.load) throw new InvalidParamError('loadUserByEmailRepository')
+
     this.loadUserByEmailRepository.load(email)
   }
 }
@@ -41,5 +44,17 @@ describe('Auth UseCase', () => {
     const { sut, loadUserByEmailRepositorySpy } = makeSut()
     await sut.auth('any_email@mail.com', 'any_password') // retorna uma promisse
     expect(loadUserByEmailRepositorySpy.email).toBe('any_email@mail.com') // Testando excessões com jest
+  })
+
+  test('Should throw if no LoadUserRepository is provided', () => {
+    const sut = new AuthUseCase()
+    const promise = sut.auth('any_email@mail.com', 'any_password') // retorna uma promisse
+    expect(promise).rejects.toThrow(new MissingParamError('loadUserByEmailRepository')) // Testando excessões com jest
+  })
+
+  test('Should throw if no LoadUserByEmailRepository has no load method', () => {
+    const sut = new AuthUseCase({}) // testando com objeto vazio
+    const promise = sut.auth('any_email@mail.com', 'any_password') // retorna uma promisse
+    expect(promise).rejects.toThrow(new InvalidParamError('loadUserByEmailRepository')) // Testando excessões com jest
   })
 })
