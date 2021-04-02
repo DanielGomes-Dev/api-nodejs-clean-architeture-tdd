@@ -6,6 +6,7 @@ class UpdateAcessTokenRepository {
     this.userModel = userModel
   }
   async update (userId,acessToken){
+   
     await this.userModel.updateOne({
       _id: userId
     },{
@@ -13,6 +14,7 @@ class UpdateAcessTokenRepository {
         acessToken
       }
     })
+
   }
 }
 
@@ -48,4 +50,19 @@ describe('UpdateAcessToken Repository', () => {
 
     expect(updatedFakeUser.acessToken).toBe('valid_token');
   });
+
+  test('Should throw if no userModel is provided',async () => {
+    const sut = new UpdateAcessTokenRepository();
+    const userModel = db.collection('users')
+    const fakeUser = await userModel.insertOne({
+      email:'valid_email@mail.com',
+      name:'any_name',
+      age: 50,
+      state: 'any_name',
+      password: 'hashed_password'
+    });
+    const promise = sut.update(fakeUser.ops[0]._id,'valid_token');
+    expect(promise).rejects.toThrow();
+  });
+
 });
