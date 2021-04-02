@@ -18,6 +18,16 @@ class UpdateAcessTokenRepository {
   }
 }
 
+const makeSut = () =>{
+  const userModel = db.collection('users')
+  const sut = new UpdateAcessTokenRepository(userModel);
+
+  return {
+    userModel,
+    sut
+  }
+}
+
 describe('UpdateAcessToken Repository', () => {
   beforeAll(async () => {
     client = await MongoHelper.connect (process.env.MONGO_URL);
@@ -34,8 +44,7 @@ describe('UpdateAcessToken Repository', () => {
   });
 
   test('should update the user with the diven acessToken',async () => {
-    const userModel = db.collection('users')
-    const sut = new UpdateAcessTokenRepository(userModel);
+    const {userModel,sut} = makeSut();
 
     const fakeUser = await userModel.insertOne({
       email:'valid_email@mail.com',
