@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watch --noStackTrace --passWithNoTests --coverage",
-    "test:unit": "jest --watchAll -c jest-unit-config.js --passWithNoTests",
+    "test:unit": "jest --watchAll -c jest-unit-config.js --passWithNoTests --coverage",
     "test:integration": "jest --watchAll -c jest-integration-config.js --passWithNoTests",
     "test:staged": "jest"
   },
