@@ -5,9 +5,9 @@
   "main": "src/main/index.js",
   "scripts": {
     "start": "node src/main",
-    "test": "jest --watch --noStackTrace --passWithNoTests --coverage",
-    "test:unit": "jest --watchAll -c jest-unit-config.js --passWithNoTests --coverage",
-    "test:integration": "jest --watchAll -c jest-integration-config.js --passWithNoTests",
+    "test": "jest --watch --noStackTrace --passWithNoTests --coverage --runInBand",
+    "test:unit": "jest --watchAll -c jest-unit-config.js --passWithNoTests --coverage --runInBand",
+    "test:integration": "jest --watchAll -c jest-integration-config.js --passWithNoTests --runInBand",
     "test:staged": "jest"
   },
   "standard": {
